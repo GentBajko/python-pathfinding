@@ -55,21 +55,29 @@ class BiAStarFinder(AStarFinder):
         end.f = 0
         end.opened = BY_END
 
-        while len(start_open_list) > 0 and len(end_open_list) > 0:
+        while start_open_list and end_open_list:
             self.runs += 1
             self.keep_running()
-            path = self.check_neighbors(start, end, grid, start_open_list,
-                                        open_value=BY_START,
-                                        backtrace_by=BY_END)
-            if path:
+            if path := self.check_neighbors(
+                start,
+                end,
+                grid,
+                start_open_list,
+                open_value=BY_START,
+                backtrace_by=BY_END,
+            ):
                 return path, self.runs
 
             self.runs += 1
             self.keep_running()
-            path = self.check_neighbors(end, start, grid, end_open_list,
-                                        open_value=BY_END,
-                                        backtrace_by=BY_START)
-            if path:
+            if path := self.check_neighbors(
+                end,
+                start,
+                grid,
+                end_open_list,
+                open_value=BY_END,
+                backtrace_by=BY_START,
+            ):
                 return path, self.runs
 
         # failed to find path

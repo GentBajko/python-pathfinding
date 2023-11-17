@@ -124,11 +124,10 @@ def smoothen_path(
     last_valid = path[1]
     for coord in path[2:-1]:
         line = interpolate([sx, sy], coord)
-        blocked = False
-        for test_coord in line[1:]:
-            if not grid.walkable(test_coord[0], test_coord[1]):
-                blocked = True
-                break
+        blocked = any(
+            not grid.walkable(test_coord[0], test_coord[1])
+            for test_coord in line[1:]
+        )
         if not blocked:
             new_path.append(last_valid)
             sx, sy = last_valid

@@ -33,7 +33,7 @@ class MinimumSpanningTree(Finder):
 
         open_list = [start]
 
-        while len(open_list) > 0:
+        while open_list:
             self.runs += 1
             self.keep_running()
 

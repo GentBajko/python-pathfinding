@@ -52,7 +52,7 @@ def test_path():
             print(find.__name__)
             print(grid.grid_str(path=path, start=start, end=end,
                                 show_weight=weighted))
-            print('path: {}'.format(path))
+            print(f'path: {path}')
             assert len(path) == scenario['expectedLength']
 
 
@@ -75,7 +75,7 @@ def test_path_diagonal():
             print(find.__name__, runs, len(path))
             print(grid.grid_str(path=path, start=start, end=end,
                                 show_weight=weighted))
-            print('path: {}'.format(path))
+            print(f'path: {path}')
             assert len(path) == scenario['expectedDiagonalLength']
 
 
@@ -87,11 +87,9 @@ def test_max_runs():
                       time_limit=TIME_LIMIT, max_runs=3)
         with pytest.raises(ExecutionRunsException):
             path, runs = finder.find_path(start, end, grid)
-            print('{} finishes after {} runs without exception'.format(
-                find.__name__, runs))
-            print('path: {}'.format(path))
-        msg = '{} needed to much iterations'.format(
-            finder.__class__.__name__)
+            print(f'{find.__name__} finishes after {runs} runs without exception')
+            print(f'path: {path}')
+        msg = f'{finder.__class__.__name__} needed to much iterations'
         assert finder.runs <= 3, msg
 
 
@@ -103,10 +101,9 @@ def test_time():
                       time_limit=-.1)
         with pytest.raises(ExecutionTimeException):
             path, runs = finder.find_path(start, end, grid)
-            print('{} finishes after {} runs without exception'.format(
-                find.__name__, runs))
-            print('path: {}'.format(path))
-        msg = '{} took to long'.format(finder.__class__.__name__)
+            print(f'{find.__name__} finishes after {runs} runs without exception')
+            print(f'path: {path}')
+        msg = f'{finder.__class__.__name__} took to long'
         assert finder.runs == 1, msg
 
 

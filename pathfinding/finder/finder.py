@@ -77,14 +77,13 @@ class Finder:
         """
         if self.runs >= self.max_runs:
             raise ExecutionRunsException(
-                '{} run into barrier of {} iterations without '
-                'finding the destination'.format(
-                    self.__class__.__name__, self.max_runs))
+                f'{self.__class__.__name__} run into barrier of {self.max_runs} iterations without finding the destination'
+            )
 
         if time.time() - self.start_time >= self.time_limit:
             raise ExecutionTimeException(
-                '{} took longer than {} seconds, aborting!'.format(
-                    self.__class__.__name__, self.time_limit))
+                f'{self.__class__.__name__} took longer than {self.time_limit} seconds, aborting!'
+            )
 
     def process_node(
             self, graph, node, parent, end, open_list, open_value=True):
@@ -151,12 +150,11 @@ class Finder:
 
         open_list = [start]
 
-        while len(open_list) > 0:
+        while open_list:
             self.runs += 1
             self.keep_running()
 
-            path = self.check_neighbors(start, end, grid, open_list)
-            if path:
+            if path := self.check_neighbors(start, end, grid, open_list):
                 return path, self.runs
 
         # failed to find path

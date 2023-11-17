@@ -29,7 +29,4 @@ def chebyshev(dx, dy) -> float:
 
 def octile(dx, dy) -> float:
     f = SQRT2 - 1
-    if dx < dy:
-        return f * dx + dy
-    else:
-        return f * dy + dx
+    return f * dx + dy if dx < dy else f * dy + dx
